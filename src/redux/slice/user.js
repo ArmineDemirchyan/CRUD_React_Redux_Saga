@@ -8,6 +8,7 @@ const user = createSlice({
         surname: "",
         email: "",
         phone: "",
+        password:""
     },
     reducers: {
         setUserSlice: (state, action) => {

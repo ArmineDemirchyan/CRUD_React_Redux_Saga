@@ -2,23 +2,24 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const users = createSlice({
     name: 'users',
-    initialState: [{
+    initialState:[ {
         id: 0,
-        name: "",
-        surname: "",
-        email: "",
-        phone: "",
+        name: '',
+        surname: '',
+        email:'',
+        phone: '',
+        password:''
     }],
     reducers: {
         getUsersSlice: (state, action) => {
-            state = action.payload;
+            state = action.payload.data.data;
             return state;
         },
         addUserSlice: (state, action) => {
-            state.push(action.payload);
+            state.push(action.payload.data.data);
             return state;
         },
-        updateUserSlice: (state, action) => {
+        editUserSlice: (state, action) => {
             state = state.map(item => item.id == action.payload.id ? action.payload : item);
             return state;
         },
@@ -28,5 +29,5 @@ const users = createSlice({
         },
     }
 })
-export const { getUsersSlice, addUserSlice, updateUserSlice, deleteUserSlice } = users.actions;
+export const { getUsersSlice, addUserSlice, editUserSlice, deleteUserSlice } = users.actions;
 export default users.reducer;

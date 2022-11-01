@@ -1,13 +1,13 @@
-import * as React from 'react';
+import  React,{useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
-import { deleteUserSlice } from '../redux/slice/users';
 import { setUserSlice } from '../redux/slice/user';
+import { DELETE_USER, GET_USERS } from '../redux/sagas/types';
 
 export default function MyTable() {
   const rows = useSelector(state => state.users);
   const dispatch = useDispatch();
-
+  useEffect(() => {dispatch({ type: GET_USERS })}, [])
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -30,7 +30,7 @@ export default function MyTable() {
               <TableCell align="right">{row.email}</TableCell>
               <TableCell align="right">{row.phone}</TableCell>
               <TableCell align="right"><Button onClick={() => dispatch(setUserSlice(row))} variant="contained">Edit</Button></TableCell>
-              <TableCell align="right"><Button onClick={() => dispatch(deleteUserSlice(row.id))} variant="outlined" color="error">Delete</Button></TableCell>
+              <TableCell align="right"><Button onClick={() => dispatch({type:DELETE_USER, id:row.id})} variant="outlined" color="error">Delete</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>
